@@ -25,8 +25,8 @@
   <app-book-card [book]="fetchedBook"></app-book-card>
 
   <!-- Price and kind of the book -->
-  <div class="row">
-    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div class="row" *ngIf="fetchedBook">
+    <form #form="ngForm" (ngSubmit)="onSaveBook(form)">
       <div class="row">
         <div class="col-3">
           <div class="form-floating">
@@ -58,3 +58,5 @@
     </form>
   </div>
 </div>
+
+<button class="btn btn-danger" (click)="test()">Get Books (console.log)</button>

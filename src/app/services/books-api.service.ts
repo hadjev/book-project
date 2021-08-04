@@ -2,12 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AsyncSubject, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Book } from '../models/book.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NewBookApiService {
-  private baseUrl = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
+export class BookApiService {
+  private fetchUrl = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
+  private firebaseUrl =
+    'https://ng-book-project-95f68-default-rtdb.europe-west1.firebasedatabase.app/books.json';
   fetchedBook;
 
   test = new Subject<string>();
@@ -20,8 +23,8 @@ export class NewBookApiService {
   // 9783596191154 Der Gewaehlte
   // 9783423214124 Der Hobbit
 
-  fetchBook(isbn: HTMLInputElement) {
-    return this.http.get(this.baseUrl + isbn.value).pipe(
+  fetchNewBook(isbn: HTMLInputElement) {
+    return this.http.get(this.fetchUrl + isbn.value).pipe(
       map((data: any) => {
         const bookBaseUrl = data.items[0];
         let author: string = '';
@@ -50,5 +53,17 @@ export class NewBookApiService {
         };
       })
     );
+  }
+
+  postNewBook(bookData: Book) {
+    this.http.post(this.firebaseUrl, bookData).subscribe((responseData) => {
+      console.log(responseData);
+    });
+  }
+
+  getBooks() {
+    this.http.get(this.firebaseUrl).subscribe((responseData) => {
+      console.log(responseData);
+    });
   }
 }

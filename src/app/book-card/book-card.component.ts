@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Book } from '../models/book.model';
-import { NewBookApiService } from '../services/new-book-api.service';
+import { BookApiService } from '../services/books-api.service';
 
 @Component({
   selector: 'app-book-card',
@@ -10,7 +10,7 @@ import { NewBookApiService } from '../services/new-book-api.service';
 export class BookCardComponent implements OnInit {
   @Input() book: Book;
 
-  constructor(private newBookService: NewBookApiService) {}
+  constructor(private newBookService: BookApiService) {}
 
   ngOnInit(): void {
     this.newBookService.newBook.subscribe((data) => {
