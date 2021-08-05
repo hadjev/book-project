@@ -10,11 +10,18 @@ import { BookApiService } from '../services/books-api.service';
 export class BookCardComponent implements OnInit {
   @Input() book: Book;
 
-  constructor(private newBookService: BookApiService) {}
+  constructor(private bookApiService: BookApiService) {}
 
   ngOnInit(): void {
-    this.newBookService.newBook.subscribe((data) => {
+    this.bookApiService.newBook.subscribe((data) => {
       console.log(data);
     });
+  }
+
+  goToLink(isbn) {
+    window.open(
+      `https://www.amazon.de/gp/search?ie=UTF8&keywords=${isbn}`,
+      '_blank'
+    );
   }
 }

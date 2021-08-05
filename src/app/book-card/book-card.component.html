@@ -1,4 +1,4 @@
-<div class="card mb-3" style="max-width: 540px" *ngIf="book">
+<div class="card mb-3" style="max-width: 540px">
   <div class="row g-0">
     <div class="col-md-4">
       <img
@@ -8,7 +8,7 @@
         width="200px"
       />
     </div>
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="card-body">
         <h5 class="card-title">{{ book.title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ book.subtitle }}</h6>
@@ -20,6 +20,16 @@
           <small class="text-muted">Last updated 3 mins ago</small>
         </p>
       </div>
+    </div>
+    <div class="col-md-1 text-center">
+      <a (click)="goToLink(book.isbn)" style="cursor: pointer">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/d/de/Amazon_icon.png"
+          class="float-right"
+          alt=""
+          width="40px"
+        />
+      </a>
     </div>
   </div>
 </div>

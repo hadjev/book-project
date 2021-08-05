@@ -62,8 +62,12 @@ export class BookApiService {
   }
 
   getBooks() {
-    this.http.get(this.firebaseUrl).subscribe((responseData) => {
-      console.log(responseData);
-    });
+    return this.http.get(this.firebaseUrl);
   }
+  // getBooks() {
+  //   this.http.get(this.firebaseUrl).subscribe((responseData) => {
+  //     console.log(responseData);
+  //     return responseData;
+  //   });
+  // }
 }
