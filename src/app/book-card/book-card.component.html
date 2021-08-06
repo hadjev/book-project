@@ -1,35 +1,47 @@
-<div class="card mb-3" style="max-width: 540px">
+<div class="card mb-3" style="max-width: 640px">
   <div class="row g-0">
     <div class="col-md-4">
       <img
-        src="{{ book.imgLink }}"
+        src="../../assets/images/{{ book.isbn }}.jpg"
         class="img-fluid rounded-start"
         alt="..."
         width="200px"
       />
+      <!-- <img
+        src="{{ book.imgLink }}"
+        class="img-fluid rounded-start"
+        alt="..."
+        width="200px"
+      /> -->
     </div>
     <div class="col-md-7">
       <div class="card-body">
-        <h5 class="card-title">{{ book.title }}</h5>
+        <h5 class="card-title">
+          {{ book.title }}&nbsp;&nbsp;&nbsp;
+
+          <a (click)="goToLink(book.isbn)" style="cursor: pointer"
+            ><i class="fab fa-amazon"></i>
+          </a>
+          <!-- <a (click)="goToLink(book.isbn)" style="cursor: pointer">
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/d/de/Amazon_icon.png"
+              class="float-right"
+              alt=""
+              width="40px"
+            />
+          </a> -->
+        </h5>
+
         <h6 class="card-subtitle mb-2 text-muted">{{ book.subtitle }}</h6>
         <p class="card-text">
           {{ book.content }}
         </p>
+        <p class="card-text">ISBN: {{ book.isbn }}</p>
 
         <p class="card-text">
           <small class="text-muted">Last updated 3 mins ago</small>
         </p>
       </div>
-    </div>
-    <div class="col-md-1 text-center">
-      <a (click)="goToLink(book.isbn)" style="cursor: pointer">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/d/de/Amazon_icon.png"
-          class="float-right"
-          alt=""
-          width="40px"
-        />
-      </a>
     </div>
   </div>
 </div>

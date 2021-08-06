@@ -7,14 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BookCardComponent } from './book-card/book-card.component';
 import { BooksListComponent } from './books-list/books-list.component';
-import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NewBookComponent } from './new-book/new-book.component';
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    component: BooksListComponent,
   },
   {
     path: 'neu',

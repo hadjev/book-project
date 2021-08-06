@@ -11,10 +11,10 @@ export class BookApiService {
   private fetchUrl = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
   private firebaseUrl =
     'https://ng-book-project-95f68-default-rtdb.europe-west1.firebasedatabase.app/books.json';
-  fetchedBook;
 
   test = new Subject<string>();
   newBook = new AsyncSubject();
+  fetchedBooks: any = [];
 
   constructor(private http: HttpClient) {}
 
@@ -61,13 +61,47 @@ export class BookApiService {
     });
   }
 
-  getBooks() {
-    return this.http.get(this.firebaseUrl);
-  }
   // getBooks() {
-  //   this.http.get(this.firebaseUrl).subscribe((responseData) => {
-  //     console.log(responseData);
-  //     return responseData;
-  //   });
+  //   return this.http.get(this.firebaseUrl);
   // }
+
+  // getBooks() {
+  //   let books = [];
+  //   this.http
+  //     .get(this.firebaseUrl)
+  //     .pipe(
+  //       map((responseData) => {
+  //         const booksArray: Book[] = [];
+  //         for (const key in responseData) {
+  //           if (responseData.hasOwnProperty(key)) {
+  //             booksArray.push({ ...responseData[key], id: key });
+  //           }
+  //         }
+  //         return booksArray;
+  //       })
+  //     )
+  //     .subscribe((booksData) => {
+  //       console.log('booksData: ' + booksData);
+  //       this.fetchedBooks = booksData;
+  //       console.log('this.fetchedBooks: ');
+
+  //       console.log(this.fetchedBooks);
+  //     });
+
+  //   return this.fetchedBooks;
+  // }
+
+  getBooks() {
+    return this.http.get(this.firebaseUrl).pipe(
+      map((responseData) => {
+        const booksArray: Book[] = [];
+        for (const key in responseData) {
+          if (responseData.hasOwnProperty(key)) {
+            booksArray.push({ ...responseData[key], id: key });
+          }
+        }
+        return booksArray;
+      })
+    );
+  }
 }

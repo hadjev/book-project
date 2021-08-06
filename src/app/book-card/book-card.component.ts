@@ -13,9 +13,10 @@ export class BookCardComponent implements OnInit {
   constructor(private bookApiService: BookApiService) {}
 
   ngOnInit(): void {
-    this.bookApiService.newBook.subscribe((data) => {
-      console.log(data);
-    });
+    // this.bookApiService.newBook.subscribe((data) => {
+    //   console.log(data);
+    // });
+    console.log(this.book);
   }
 
   goToLink(isbn) {
