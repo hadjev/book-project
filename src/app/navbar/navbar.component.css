@@ -1,0 +1,9 @@
+.active {
+  background-color: #333;
+  color: #fff !important;
+  border-radius: 0.5rem;
+}
+
+li > a {
+  margin-left: 1rem;
+}

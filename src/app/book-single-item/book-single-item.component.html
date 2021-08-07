@@ -1,0 +1,86 @@
+<div *ngIf="selectedBook">
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-12 col-lg-2">
+        <img
+          src="../../assets/images/{{ selectedBook.isbn }}.jpg"
+          class="img-fluid rounded-start"
+          alt="..."
+          width="250px"
+        />
+      </div>
+      <div class="col-10 col-lg-10">
+        <div class="card-body">
+          <!-- TITLE + SOLD -->
+          <h2 class="card-title" *ngIf="!selectedBook.sold">
+            {{ selectedBook.title
+            }}<span *ngIf="selectedBook.subtitle"
+              >: {{ selectedBook.subtitle }}</span
+            >
+          </h2>
+          <h2 class="card-title" *ngIf="selectedBook.sold">
+            <span class="text-decoration-line-through">{{
+              selectedBook.title
+            }}</span>
+            &nbsp;<span class="text-danger">verkauft</span>
+          </h2>
+
+          <!-- Booktype + Year -->
+          <h4 class="card-subtitle text-muted">
+            {{ selectedBook.type }} - {{ selectedBook.publischedDate }}
+          </h4>
+
+          <!-- Author || Authors -->
+          <small>
+            <p class="fw-light author" *ngIf="selectedBook.author">
+              von {{ selectedBook.author }}
+            </p>
+            <p class="fw-light author" *ngIf="selectedBook.authors">
+              von {{ selectedBook.authors }}
+            </p>
+          </small>
+
+          <!-- Content -->
+          <div class="col-8">
+            <p class="card-text">{{ selectedBook.content }}</p>
+          </div>
+
+          <!-- Page Count -->
+          <p class="card-text spacing-top-1 no-margin-bottom">
+            <span class="fw-bold">Seiten: </span>
+            {{ selectedBook.pageCount }}
+          </p>
+
+          <!-- ISBN -->
+          <p class="card-text no-margin-top">
+            <span class="fw-bold">ISBN: </span>
+            {{ selectedBook.isbn }}
+          </p>
+
+          <!-- Price -->
+          <h4>
+            <span>Preis: </span>
+            <span id="price">{{ selectedBook.price | currency: "EUR" }}</span>
+          </h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amazon search link -->
+    <a (click)="goToLink(selectedBook.isbn)" class="my-own-link"
+      ><i class="fab fa-amazon" style="font-size: 2rem"></i>
+    </a>
+
+    <!-- Link to book-single-item (details page) -->
+  </div>
+</div>
+
+<!-- If something went wrong -->
+<div *ngIf="!selectedBook">
+  <p>
+    Bitte wählen Sie ein Buch aus der
+    <a [routerLink]="['']"> Liste</a> aus.
+  </p>
+
+  <p>Please select a book from the <a [routerLink]="['']">list</a>.</p>
+</div>

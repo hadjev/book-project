@@ -1,25 +1,18 @@
+import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import localeDe from '@angular/common/locales/de';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BookCardComponent } from './book-card/book-card.component';
+import { BookSingleItemComponent } from './book-single-item/book-single-item.component';
 import { BooksListComponent } from './books-list/books-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NewBookComponent } from './new-book/new-book.component';
 
-const appRoutes: Routes = [
-  {
-    path: '',
-    component: BooksListComponent,
-  },
-  {
-    path: 'neu',
-    component: NewBookComponent,
-  },
-];
+registerLocaleData(localeDe, 'de');
 
 @NgModule({
   declarations: [
@@ -28,15 +21,15 @@ const appRoutes: Routes = [
     BooksListComponent,
     NewBookComponent,
     BookCardComponent,
+    BookSingleItemComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot(appRoutes),
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'de',
+    },
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

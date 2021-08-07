@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Book } from '../models/book.model';
-import { BookApiService } from '../services/books-api.service';
+import { BooksService } from '../services/books.service';
 
 @Component({
   selector: 'app-book-card',
@@ -10,19 +11,23 @@ import { BookApiService } from '../services/books-api.service';
 export class BookCardComponent implements OnInit {
   @Input() book: Book;
 
-  constructor(private bookApiService: BookApiService) {}
+  constructor(private booksService: BooksService, private router: Router) {}
 
-  ngOnInit(): void {
-    // this.bookApiService.newBook.subscribe((data) => {
-    //   console.log(data);
-    // });
-    console.log(this.book);
-  }
+  ngOnInit(): void {}
 
-  goToLink(isbn) {
+  goToLink(isbn: string) {
     window.open(
       `https://www.amazon.de/gp/search?ie=UTF8&keywords=${isbn}`,
       '_blank'
     );
+  }
+
+  onSelectedBook() {
+    // console.log(this.book);
+
+    // this.booksService.bookSelected.emit(this.book);
+    // this.router.navigate(['/book']);
+
+    this.router.navigate(['/book', this.book.isbn]);
   }
 }

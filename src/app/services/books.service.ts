@@ -1,20 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { AsyncSubject, Subject } from 'rxjs';
+import { EventEmitter, Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Book } from '../models/book.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class BookApiService {
+export class BooksService {
   private fetchUrl = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
   private firebaseUrl =
     'https://ng-book-project-95f68-default-rtdb.europe-west1.firebasedatabase.app/books.json';
 
-  test = new Subject<string>();
-  newBook = new AsyncSubject();
   fetchedBooks: any = [];
+  bookSelected = new EventEmitter<Book>();
+  booksArray: Book[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -49,7 +48,7 @@ export class BookApiService {
           title: bookBaseUrl.volumeInfo.title,
           price: 0,
           sold: false,
-          type: '',
+          type: 'please choose book type',
         };
       })
     );
@@ -61,47 +60,21 @@ export class BookApiService {
     });
   }
 
-  // getBooks() {
-  //   return this.http.get(this.firebaseUrl);
-  // }
-
-  // getBooks() {
-  //   let books = [];
-  //   this.http
-  //     .get(this.firebaseUrl)
-  //     .pipe(
-  //       map((responseData) => {
-  //         const booksArray: Book[] = [];
-  //         for (const key in responseData) {
-  //           if (responseData.hasOwnProperty(key)) {
-  //             booksArray.push({ ...responseData[key], id: key });
-  //           }
-  //         }
-  //         return booksArray;
-  //       })
-  //     )
-  //     .subscribe((booksData) => {
-  //       console.log('booksData: ' + booksData);
-  //       this.fetchedBooks = booksData;
-  //       console.log('this.fetchedBooks: ');
-
-  //       console.log(this.fetchedBooks);
-  //     });
-
-  //   return this.fetchedBooks;
-  // }
-
   getBooks() {
     return this.http.get(this.firebaseUrl).pipe(
       map((responseData) => {
-        const booksArray: Book[] = [];
+        // const booksArray: Book[] = [];
         for (const key in responseData) {
           if (responseData.hasOwnProperty(key)) {
-            booksArray.push({ ...responseData[key], id: key });
+            this.booksArray.push({ ...responseData[key], id: key });
           }
         }
-        return booksArray;
+        return this.booksArray;
       })
     );
+  }
+
+  getSingleBook(isbn: string): Book {
+    return this.booksArray.filter((book: Book) => book.isbn === isbn)[0];
   }
 }

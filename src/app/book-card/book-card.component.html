@@ -1,39 +1,45 @@
-<div class="card mb-3" style="max-width: 640px">
+<div class="card mb-3 mx-auto" style="max-width: 480px">
   <div class="row g-0">
-    <div class="col-md-4">
+    <div class="col-2">
       <img
         src="../../assets/images/{{ book.isbn }}.jpg"
         class="img-fluid rounded-start"
         alt="..."
-        width="200px"
+        width="100px"
       />
-      <!-- <img
-        src="{{ book.imgLink }}"
-        class="img-fluid rounded-start"
-        alt="..."
-        width="200px"
-      /> -->
     </div>
-    <div class="col-md-7">
+    <div class="col-10">
       <div class="card-body">
-        <h5 class="card-title">
-          {{ book.title }}&nbsp;&nbsp;&nbsp;
-
-          <a (click)="goToLink(book.isbn)" style="cursor: pointer"
-            ><i class="fab fa-amazon"></i>
-          </a>
+        <!-- TITLE + SOLD -->
+        <h5 class="card-title" *ngIf="!book.sold">
+          {{ book.title }}
+        </h5>
+        <h5 class="card-title" *ngIf="book.sold">
+          <span class="text-decoration-line-through">{{ book.title }}</span>
+          &nbsp;<span class="text-danger">verkauft</span>
         </h5>
 
-        <h6 class="card-subtitle mb-2 text-muted">{{ book.subtitle }}</h6>
-        <p class="card-text">
-          {{ book.content }}
-        </p>
-        <p class="card-text">ISBN: {{ book.isbn }}</p>
+        <!-- Author || Authors -->
+        <small>
+          <p class="fw-light author" *ngIf="book.author">
+            von {{ book.author }}
+          </p>
+          <p class="fw-light author" *ngIf="book.authors">
+            von {{ book.authors }}
+          </p>
+        </small>
 
-        <p class="card-text">
-          <small class="text-muted">Last updated 3 mins ago</small>
+        <!-- Book type -->
+        <p class="text-primary" id="type">
+          {{ book.type }}
         </p>
+
+        <!-- Price -->
+        <h4>{{ book.price | currency: "EUR" }}</h4>
       </div>
     </div>
   </div>
+
+  <!-- Link to book-single-item (details page) -->
+  <button class="btn btn-light" (click)="onSelectedBook()">Details</button>
 </div>

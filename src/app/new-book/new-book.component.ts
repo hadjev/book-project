@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Book } from '../models/book.model';
-import { BookApiService } from '../services/books-api.service';
+import { BooksService } from '../services/books.service';
 
 @Component({
   selector: 'app-new-book',
@@ -11,7 +11,7 @@ import { BookApiService } from '../services/books-api.service';
 export class NewBookComponent implements OnInit {
   fetchedBook: Book;
 
-  constructor(private bookApiService: BookApiService) {}
+  constructor(private bookApiService: BooksService) {}
 
   ngOnInit(): void {}
 
@@ -24,13 +24,16 @@ export class NewBookComponent implements OnInit {
   onSaveBook(form: NgForm): void {
     this.fetchedBook.price = form.value.price;
     this.fetchedBook.type = form.value.type;
-    console.log(this.fetchedBook);
     this.bookApiService.postNewBook(this.fetchedBook);
 
     // form.reset();
   }
 
-  test() {
-    this.bookApiService.getBooks();
+  onPriceChange(event) {
+    this.fetchedBook.price = Number(event.target.value);
+  }
+
+  onBookTypeChange(event) {
+    this.fetchedBook.type = event.target.value;
   }
 }
