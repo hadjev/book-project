@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Book } from '../models/book.model';
 import { BooksService } from '../services/books.service';
 
@@ -11,20 +12,25 @@ import { BooksService } from '../services/books.service';
 export class NewBookComponent implements OnInit {
   fetchedBook: Book;
 
-  constructor(private bookApiService: BooksService) {}
+  constructor(private booksService: BooksService, private router: Router) {}
 
   ngOnInit(): void {}
 
   onSearchButtonClick(isbn: HTMLInputElement): void {
-    this.bookApiService.fetchNewBook(isbn).subscribe((data) => {
-      this.fetchedBook = data;
+    this.booksService.fetchNewBook(isbn).subscribe((data) => {
+      this.fetchedBook = { ...data, id: '' };
     });
   }
 
   onSaveBook(form: NgForm): void {
     this.fetchedBook.price = form.value.price;
     this.fetchedBook.type = form.value.type;
-    this.bookApiService.postNewBook(this.fetchedBook);
+
+    this.booksService.postNewBook(this.fetchedBook).subscribe(() => {
+      this.booksService.getBooks().subscribe(() => {
+        this.router.navigate(['/book', this.fetchedBook.isbn]);
+      });
+    });
 
     // form.reset();
   }

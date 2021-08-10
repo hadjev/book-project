@@ -57,10 +57,14 @@
             {{ selectedBook.isbn }}
           </p>
 
+          <!-- Book type -->
+          <p class="text-primary" id="type">
+            {{ selectedBook.type }}
+          </p>
+
           <!-- Price -->
           <h4>
-            <span>Preis: </span>
-            <span id="price">{{ selectedBook.price | currency: "EUR" }}</span>
+            {{ selectedBook.price | currency: "EUR" }}
           </h4>
         </div>
       </div>
@@ -84,3 +88,11 @@
 
   <p>Please select a book from the <a [routerLink]="['']">list</a>.</p>
 </div>
+
+<div class="row">
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-info" (click)="onEdit()">Edit</button>
+  </div>
+</div>
+
+<app-book-edit *ngIf="bookEditing" [book]="selectedBook"></app-book-edit>

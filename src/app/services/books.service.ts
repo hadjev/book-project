@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Book } from '../models/book.model';
 
@@ -9,10 +9,8 @@ import { Book } from '../models/book.model';
 export class BooksService {
   private fetchUrl = 'https://www.googleapis.com/books/v1/volumes?q=isbn:';
   private firebaseUrl =
-    'https://ng-book-project-95f68-default-rtdb.europe-west1.firebasedatabase.app/books.json';
+    'https://ng-book-project-95f68-default-rtdb.europe-west1.firebasedatabase.app/';
 
-  fetchedBooks: any = [];
-  bookSelected = new EventEmitter<Book>();
   booksArray: Book[] = [];
 
   constructor(private http: HttpClient) {}
@@ -48,22 +46,16 @@ export class BooksService {
           title: bookBaseUrl.volumeInfo.title,
           price: 0,
           sold: false,
-          type: 'please choose book type',
+          type: 'please choose a book type',
         };
       })
     );
   }
 
-  postNewBook(bookData: Book) {
-    this.http.post(this.firebaseUrl, bookData).subscribe((responseData) => {
-      console.log(responseData);
-    });
-  }
-
   getBooks() {
-    return this.http.get(this.firebaseUrl).pipe(
+    this.booksArray = [];
+    return this.http.get(`${this.firebaseUrl}books.json`).pipe(
       map((responseData) => {
-        // const booksArray: Book[] = [];
         for (const key in responseData) {
           if (responseData.hasOwnProperty(key)) {
             this.booksArray.push({ ...responseData[key], id: key });
@@ -76,5 +68,23 @@ export class BooksService {
 
   getSingleBook(isbn: string): Book {
     return this.booksArray.filter((book: Book) => book.isbn === isbn)[0];
+  }
+
+  postNewBook(bookData: Book) {
+    return this.http.post(`${this.firebaseUrl}books.json`, bookData);
+  }
+
+  deleteBook(id: string) {
+    this.booksArray = [];
+
+    return this.http.delete(
+      `https://ng-book-project-95f68-default-rtdb.europe-west1.firebasedatabase.app/books/${id}.json`
+    );
+  }
+
+  updateBook(id: string, bookData: any) {
+    this.booksArray = [];
+
+    return this.http.patch(`${this.firebaseUrl}books/${id}.json`, bookData);
   }
 }

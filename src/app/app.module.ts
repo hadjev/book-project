@@ -11,6 +11,7 @@ import { BookSingleItemComponent } from './book-single-item/book-single-item.com
 import { BooksListComponent } from './books-list/books-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NewBookComponent } from './new-book/new-book.component';
+import { BookEditComponent } from './book-edit/book-edit.component';
 
 registerLocaleData(localeDe, 'de');
 
@@ -22,6 +23,7 @@ registerLocaleData(localeDe, 'de');
     NewBookComponent,
     BookCardComponent,
     BookSingleItemComponent,
+    BookEditComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [
