@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Book } from '../models/book.model';
@@ -16,7 +17,8 @@ export class BookSingleItemComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private booksService: BooksService
+    private booksService: BooksService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -26,16 +28,22 @@ export class BookSingleItemComponent implements OnInit {
       this.isbn = params['isbn'];
     });
 
-    // this.selectedBook = this.booksService.getSingleBook(this.isbn);
+    if (!this.booksService.booksArray) {
+      this.booksService.getBooks().subscribe((books) => {
+        this.selectedBook = this.booksService.getSingleBook(this.isbn);
+      });
+    }
+
+    this.selectedBook = this.booksService.getSingleBook(this.isbn);
 
     ////////////////////////////////
     // for styling only
     ////////////////////////////////
-    this.booksService.getBooks().subscribe((books: any = []) => {
-      this.selectedBook = books.filter(
-        (book: Book) => book.isbn === this.isbn
-      )[0];
-    });
+    // this.booksService.getBooks().subscribe((books: any = []) => {
+    //   this.selectedBook = books.filter(
+    //     (book: Book) => book.isbn === this.isbn
+    //   )[0];
+    // });
 
     // this.selectedBook = this.booksService.booksArray.filter(
     //   (book: Book) => book.isbn === this.isbn
@@ -50,7 +58,9 @@ export class BookSingleItemComponent implements OnInit {
   }
 
   onEdit() {
-    this.bookEditing = !this.bookEditing;
+    console.log('asdf');
+
+    this.router.navigate(['book', 'edit', this.selectedBook.isbn]);
   }
 
   // onDelete(): void {

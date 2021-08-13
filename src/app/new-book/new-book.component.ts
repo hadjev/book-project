@@ -11,14 +11,23 @@ import { BooksService } from '../services/books.service';
 })
 export class NewBookComponent implements OnInit {
   fetchedBook: Book;
+  imageLink: string;
+  isLoading = false;
 
   constructor(private booksService: BooksService, private router: Router) {}
 
   ngOnInit(): void {}
 
   onSearchButtonClick(isbn: HTMLInputElement): void {
+    this.isLoading = true;
+
     this.booksService.fetchNewBook(isbn).subscribe((data) => {
+      console.log(data);
+
       this.fetchedBook = { ...data, id: '' };
+      this.imageLink = data.imgLink;
+
+      this.isLoading = false;
     });
   }
 
@@ -28,11 +37,10 @@ export class NewBookComponent implements OnInit {
 
     this.booksService.postNewBook(this.fetchedBook).subscribe(() => {
       this.booksService.getBooks().subscribe(() => {
+        // form.reset();
         this.router.navigate(['/book', this.fetchedBook.isbn]);
       });
     });
-
-    // form.reset();
   }
 
   onPriceChange(event) {

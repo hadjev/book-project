@@ -1,1 +1,11 @@
-<app-book-card [book]="book" *ngFor="let book of books"></app-book-card>
+<div *ngIf="isLoading" style="text-align: center">
+  <app-loading-spinner></app-loading-spinner>
+</div>
+
+<div *ngIf="!isLoading">
+  <app-book-card
+    [book]="book"
+    *ngFor="let book of books"
+    imageLink="{{ book.imgLink }}"
+  ></app-book-card>
+</div>

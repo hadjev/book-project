@@ -11,16 +11,18 @@ export class BooksService {
   private firebaseUrl =
     'https://ng-book-project-95f68-default-rtdb.europe-west1.firebasedatabase.app/';
 
-  booksArray: Book[] = [];
+  booksArray: Book[];
 
   constructor(private http: HttpClient) {}
 
   // 9783426780428 Simplify
-  // 9783893400614 Hobsbawm
+  // 9783893400614 Hobsbawm -> NO IMAGE AVAILABLE
   // 9783596191154 Der Gewaehlte
   // 9783423214124 Der Hobbit
+  // 9783423020749 Fuast NOT FOUND
 
   fetchNewBook(isbn: HTMLInputElement) {
+    // isbn = '9783426780428';
     return this.http.get(this.fetchUrl + isbn.value).pipe(
       map((data: any) => {
         const bookBaseUrl = data.items[0];
@@ -37,8 +39,10 @@ export class BooksService {
         return {
           author: author,
           authors: authors,
-          content: bookBaseUrl.searchInfo?.textSnippet ?? 'kein Text',
-          imgLink: bookBaseUrl.volumeInfo.imageLinks.thumbnail,
+          content: bookBaseUrl.searchInfo?.textSnippet ?? 'no text',
+          imgLink:
+            bookBaseUrl.volumeInfo.imageLinks?.thumbnail ??
+            'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
           isbn: bookBaseUrl.volumeInfo.industryIdentifiers[1].identifier,
           pageCount: bookBaseUrl.volumeInfo.pageCount,
           publischedDate: bookBaseUrl.volumeInfo.publishedDate,
@@ -67,6 +71,13 @@ export class BooksService {
   }
 
   getSingleBook(isbn: string): Book {
+    if (!this.booksArray) {
+      this.getBooks().subscribe((books) => {
+        this.booksArray = books;
+        return books.filter((book: Book) => book.isbn === isbn)[0];
+      });
+    }
+
     return this.booksArray.filter((book: Book) => book.isbn === isbn)[0];
   }
 

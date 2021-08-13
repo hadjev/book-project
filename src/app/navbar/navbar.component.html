@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"
+    <a class="navbar-brand" routerLink="/"
       ><span><i class="bi-book"></i></span> Bücher</a
     >
     <button
@@ -15,7 +15,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav w-100 justify-content-start">
         <li class="nav-item">
           <a
             class="nav-link"
@@ -26,11 +26,40 @@
             >Home</a
           >
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="isUserLoggedIn">
           <a class="nav-link" routerLink="/new" routerLinkActive="active"
-            >Neu</a
+            >New</a
           >
         </li>
+      </ul>
+
+      <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+        <li class="nav-item" *ngIf="!isUserLoggedIn">
+          <a
+            class="nav-link text-success"
+            style="cursor: pointer"
+            (click)="onLogin()"
+            >Login</a
+          >
+        </li>
+        <li class="nav-item" *ngIf="isUserLoggedIn">
+          <a
+            class="nav-link text-danger"
+            style="cursor: pointer"
+            (click)="onLogout()"
+            >Logout</a
+          >
+        </li>
+        <!-- <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="isUserLoggedIn ? [''] : ['/login']"
+            routerLinkActive="active"
+            [ngStyle]="isUserLoggedIn ? { color: 'red' } : { color: 'green' }"
+            (click)="loginLogout()"
+            >{{ isUserLoggedIn ? "Logout" : "Login" }}
+          </a>
+        </li> -->
       </ul>
     </div>
   </div>

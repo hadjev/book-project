@@ -10,6 +10,7 @@ import { BooksService } from '../services/books.service';
 })
 export class BookCardComponent implements OnInit {
   @Input() book: Book;
+  @Input() imageLink: string;
 
   constructor(private booksService: BooksService, private router: Router) {}
 

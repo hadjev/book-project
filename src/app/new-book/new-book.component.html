@@ -1,6 +1,11 @@
 <div class="container">
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" style="text-align: center">
+    <app-loading-spinner></app-loading-spinner>
+  </div>
+
   <!-- Search for an ISBN -->
-  <div class="row">
+  <div class="row" *ngIf="!fetchedBook">
     <div class="col-4 col-sm-6">
       <div class="input-group mb-3">
         <span class="input-group-text" id="basic-addon1">ISBN:</span>
@@ -22,7 +27,11 @@
   </div>
 
   <!-- Card -->
-  <app-book-card [book]="fetchedBook" *ngIf="fetchedBook"></app-book-card>
+  <app-book-card
+    [book]="fetchedBook"
+    [imageLink]="imageLink"
+    *ngIf="fetchedBook"
+  ></app-book-card>
 
   <!-- Price and type of the book -->
   <div class="row" *ngIf="fetchedBook">
