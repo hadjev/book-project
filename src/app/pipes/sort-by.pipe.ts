@@ -9,6 +9,7 @@ export class SortByPipe implements PipeTransform {
     if (array) {
       let sortField = args[0];
       let sortDirection = args[1];
+
       let modifier = 1;
 
       if (sortDirection === 'desc') {
@@ -29,11 +30,6 @@ export class SortByPipe implements PipeTransform {
         if (typeof a[sortField] === 'string') {
           firstElement = a[sortField].toLowerCase();
           secondElement = b[sortField].toLowerCase();
-
-          // German special chars
-          if (sortField === 'title') {
-            return firstElement.localeCompare(secondElement);
-          }
         }
 
         if (firstElement < secondElement) {

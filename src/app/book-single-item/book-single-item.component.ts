@@ -25,8 +25,6 @@ export class BookSingleItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // const isbn = this.route.snapshot.params['id'];
-    // let isbn: any;
     this.route.params.subscribe((params: Params) => {
       this.isbn = params['isbn'];
     });
@@ -46,19 +44,6 @@ export class BookSingleItemComponent implements OnInit {
     });
 
     this.selectedBook = this.booksService.getSingleBook(this.isbn);
-
-    ////////////////////////////////
-    // for styling only
-    ////////////////////////////////
-    // this.booksService.getBooks().subscribe((books: any = []) => {
-    //   this.selectedBook = books.filter(
-    //     (book: Book) => book.isbn === this.isbn
-    //   )[0];
-    // });
-
-    // this.selectedBook = this.booksService.booksArray.filter(
-    //   (book: Book) => book.isbn === this.isbn
-    // )[0];
   }
 
   goToLink(isbn: string) {
@@ -69,16 +54,6 @@ export class BookSingleItemComponent implements OnInit {
   }
 
   onEdit() {
-    // this.router.navigate(['book', 'edit', this.selectedBook.isbn]);
     this.bookEditing = !this.bookEditing;
   }
-
-  // onDelete(): void {
-  //   this.booksService.deleteBook(this.selectedBook.id).subscribe(() => {
-  //     this.booksService.booksArray = [];
-  //     this.booksService.getBooks().subscribe(() => {
-  //       this.router.navigate(['']);
-  //     });
-  //   });
-  // }
 }

@@ -24,29 +24,17 @@ export class BooksService {
   fetchNewBook(isbn: HTMLInputElement) {
     return this.http.get(this.fetchUrl + isbn.value).pipe(
       map((data: any) => {
-        console.log(data);
-
         const bookBaseUrl = data.items[0];
-        let author: string = '';
-        let authors: string = '';
-
-        // Check if one or more authors
-        if (bookBaseUrl.volumeInfo.authors.length > 1) {
-          authors = bookBaseUrl.volumeInfo.authors.join(', ');
-        } else {
-          author = bookBaseUrl.volumeInfo.authors[0];
-        }
 
         return {
-          author: author,
-          authors: authors,
+          authors: bookBaseUrl.volumeInfo.authors.join(', '),
           content: bookBaseUrl.searchInfo?.textSnippet ?? 'no text',
           imgLink:
             bookBaseUrl.volumeInfo.imageLinks?.thumbnail ??
             'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg',
           isbn: bookBaseUrl.volumeInfo.industryIdentifiers[1].identifier,
           pageCount: bookBaseUrl.volumeInfo.pageCount,
-          publischedDate: bookBaseUrl.volumeInfo.publishedDate,
+          publishedDate: bookBaseUrl.volumeInfo.publishedDate,
           subtitle: bookBaseUrl.volumeInfo.subtitle,
           title: bookBaseUrl.volumeInfo.title,
           price: 0,

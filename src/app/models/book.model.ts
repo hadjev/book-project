@@ -1,5 +1,4 @@
 export class Book {
-  author: string;
   authors: string;
   content: string;
   imgLink: string;
@@ -7,7 +6,7 @@ export class Book {
   isbn: string;
   pageCount: number;
   price: number;
-  publischedDate: string;
+  publishedDate: string;
   sold: boolean;
   subtitle: string;
   title: string;

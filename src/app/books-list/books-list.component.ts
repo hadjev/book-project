@@ -9,28 +9,49 @@ import { BooksService } from '../services/books.service';
 })
 export class BooksListComponent implements OnInit {
   books: Book[] = [];
-  sortField = 'publishedDate';
+  sortField = 'title';
   sortDirection = 'asc';
   isLoading = true;
-
-  // private books: Book[] = [];
 
   constructor(private booksService: BooksService) {}
 
   ngOnInit() {
-    // if (!this.booksService.booksArray) {
-    //   this.booksService.getBooks().subscribe((books) => {
-    //     this.books = books;
-    //     this.isLoading = false;
-    //   });
-    // } else {
-    //   this.books = this.booksService.booksArray;
-    //   this.isLoading = false;
-    // }
-
     this.booksService.getBooks().subscribe((books) => {
       this.books = books;
       this.isLoading = false;
     });
+  }
+
+  sortHandler(event) {
+    switch (event.target.value) {
+      // Sort by: Title A-Z
+      case '0':
+        this.sortField = 'title';
+        this.sortDirection = 'asc';
+        break;
+
+      // Sort by: Title Z-A
+      case '1':
+        this.sortField = 'title';
+        this.sortDirection = 'desc';
+        break;
+
+      // Sort by: Price Low to High
+      case '2':
+        this.sortField = 'price';
+        this.sortDirection = 'asc';
+        break;
+
+      // Sort by: Price High to Low
+      case '3':
+        this.sortField = 'price';
+        this.sortDirection = 'desc';
+        break;
+      // Sort by: Publication Date
+      case '4':
+        this.sortField = 'publishedDate';
+        this.sortDirection = 'asc';
+        break;
+    }
   }
 }

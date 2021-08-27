@@ -2,8 +2,10 @@
   <div class="row g-0">
     <div class="col-2">
       <img
-        [src]="imageUrl"
-        onError="this.src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'"
+        src="https://filedn.eu/lLxIsbSaF1YQdyIx44x9S8z/images/{{
+          book.isbn
+        }}.jpg"
+        onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';"
         class="img-fluid rounded-start"
         alt="..."
         width="100px"
@@ -13,26 +15,25 @@
       <div class="card-body">
         <!-- TITLE + SOLD -->
         <h5 class="card-title" *ngIf="!book.sold">
-          {{ book.title }}
+          <a style="cursor: pointer" (click)="onSelectedBook()">
+            {{ book.title }}
+          </a>
         </h5>
         <h5 class="card-title" *ngIf="book.sold">
-          <span class="text-decoration-line-through">{{ book.title }}</span>
-          &nbsp;<span class="text-danger">verkauft</span>
+          <a style="cursor: pointer" (click)="onSelectedBook()">
+            <span class="text-decoration-line-through">{{ book.title }}</span>
+            &nbsp;<span class="text-danger">sold</span>
+          </a>
         </h5>
 
-        <!-- Author || Authors -->
+        <!-- Authors -->
         <small>
-          <p class="fw-light author" *ngIf="book.author">
-            Author: {{ book.author }}
-          </p>
-          <p class="fw-light author" *ngIf="book.authors">
-            Authoren: {{ book.authors }}
-          </p>
+          <p class="fw-light author">Author(s): {{ book.authors }}</p>
         </small>
 
         <!-- Book type -->
         <p class="text-primary" id="type">
-          {{ book.type }} | {{ book.publischedDate }}
+          {{ book.type }} | {{ book.publishedDate }}
         </p>
 
         <!-- Price -->

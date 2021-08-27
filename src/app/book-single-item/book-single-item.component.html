@@ -6,6 +6,7 @@
           src="https://filedn.eu/lLxIsbSaF1YQdyIx44x9S8z/images/{{
             selectedBook.isbn
           }}.jpg"
+          onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';"
           class="img-fluid rounded-start"
           alt="..."
           width="250px"
@@ -24,22 +25,17 @@
             <span class="text-decoration-line-through">{{
               selectedBook.title
             }}</span>
-            &nbsp;<span class="text-danger">verkauft</span>
+            &nbsp;<span class="text-danger">sold</span>
           </h2>
 
           <!-- Booktype + Year
           <h4 class="card-subtitle text-muted">
-            {{ selectedBook.type }} - {{ selectedBook.publischedDate }}
+            {{ selectedBook.type }} - {{ selectedBook.publishedDate }}
           </h4> -->
 
-          <!-- Author || Authors -->
+          <!-- Authors -->
           <small>
-            <p class="fw-light author" *ngIf="selectedBook.author">
-              Author: {{ selectedBook.author }}
-            </p>
-            <p class="fw-light author" *ngIf="selectedBook.authors">
-              Authoren: {{ selectedBook.authors }}
-            </p>
+            <p class="fw-light author">Author(s): {{ selectedBook.authors }}</p>
           </small>
 
           <!-- Content -->
@@ -63,7 +59,7 @@
 
           <!-- Book type + Year -->
           <p class="text-primary" id="type">
-            {{ selectedBook.type }} | {{ selectedBook.publischedDate }}
+            {{ selectedBook.type }} | {{ selectedBook.publishedDate }}
           </p>
 
           <!-- Price -->

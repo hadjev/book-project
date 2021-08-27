@@ -64,29 +64,15 @@
       <input
         type="text"
         class="form-control"
-        name="publischedDate"
-        value="{{ book.publischedDate }}"
-        [(ngModel)]="book.publischedDate"
+        name="publishedDate"
+        value="{{ book.publishedDate }}"
+        [(ngModel)]="book.publishedDate"
       />
     </div>
   </div>
 
-  <!-- Author -->
-  <div class="col-12 col-lg-8" *ngIf="book.author">
-    <div class="input-group mb-3">
-      <span class="input-group-text fixed-width" id="basic-addon1">Author</span>
-      <input
-        type="text"
-        class="form-control"
-        name="author"
-        value="{{ book.author }}"
-        [(ngModel)]="book.author"
-      />
-    </div>
-  </div>
-
-  <!-- Authors (multiple) -->
-  <div class="col-12 col-lg-8" *ngIf="book.authors">
+  <!-- Authors -->
+  <div class="col-12 col-lg-8">
     <div class="input-group mb-3">
       <span class="input-group-text fixed-width" id="basic-addon1"
         >Authors</span
