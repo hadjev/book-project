@@ -27,12 +27,10 @@ export class AuthComponent implements OnInit {
     this.isLoading = true;
     this.authService.login(email, password).subscribe(
       (resData) => {
-        console.log(resData);
         this.isLoading = false;
         this.router.navigate(['/new']);
       },
       (errorMessage) => {
-        console.log(errorMessage);
         this.error = errorMessage;
         this.isLoading = false;
       }

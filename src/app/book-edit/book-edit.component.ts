@@ -9,7 +9,42 @@ import { BooksService } from '../services/books.service';
   styleUrls: ['./book-edit.component.css'],
 })
 export class BookEditComponent implements OnInit {
-  constructor() {}
+  @Input() book: Book;
+  updatedBook: Book;
+
+  constructor(private booksService: BooksService, private router: Router) {}
 
   ngOnInit(): void {}
+
+  onDelete(bookTitle: string): void {
+    if (confirm(`Delete "${bookTitle}"?`)) {
+      this.booksService.deleteBook(this.book.id).subscribe(() => {
+        this.router.navigate(['']);
+      });
+    }
+  }
+
+  onCancel() {
+    this.router.navigate(['']);
+  }
+
+  onSubmit(form: HTMLFormElement) {
+    let tempBookArray: any = [];
+    tempBookArray = form.value;
+
+    // Check for AUTHOR and add them
+    if (!tempBookArray.author) {
+      tempBookArray.author = '';
+    }
+    // Check for AUTHORS and add them
+    if (!tempBookArray.authors) {
+      tempBookArray.authors = '';
+    }
+
+    this.updatedBook = tempBookArray;
+
+    this.booksService.updateBook(this.book.id, tempBookArray).subscribe(() => {
+      this.router.navigate(['/']);
+    });
+  }
 }

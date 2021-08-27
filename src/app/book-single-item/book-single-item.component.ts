@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 import { Book } from '../models/book.model';
 import { BooksService } from '../services/books.service';
 
@@ -12,13 +13,15 @@ import { BooksService } from '../services/books.service';
 export class BookSingleItemComponent implements OnInit {
   selectedBook: Book;
   isbn: string;
-  bookEditing: boolean = true;
+  bookEditing: boolean = false;
+  isUserLoggedIn: boolean = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private booksService: BooksService,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +36,14 @@ export class BookSingleItemComponent implements OnInit {
         this.selectedBook = this.booksService.getSingleBook(this.isbn);
       });
     }
+
+    this.authService.user.subscribe((user) => {
+      if (user) {
+        this.isUserLoggedIn = true;
+      } else {
+        this.isUserLoggedIn = false;
+      }
+    });
 
     this.selectedBook = this.booksService.getSingleBook(this.isbn);
 
@@ -58,17 +69,14 @@ export class BookSingleItemComponent implements OnInit {
   }
 
   onEdit() {
-    console.log('asdf');
-
-    this.router.navigate(['book', 'edit', this.selectedBook.isbn]);
+    // this.router.navigate(['book', 'edit', this.selectedBook.isbn]);
+    this.bookEditing = !this.bookEditing;
   }
 
   // onDelete(): void {
   //   this.booksService.deleteBook(this.selectedBook.id).subscribe(() => {
-  //     console.log('success delete');
   //     this.booksService.booksArray = [];
   //     this.booksService.getBooks().subscribe(() => {
-  //       console.log('success getBooks');
   //       this.router.navigate(['']);
   //     });
   //   });

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Book } from '../models/book.model';
@@ -10,11 +11,21 @@ import { BooksService } from '../services/books.service';
 })
 export class BookCardComponent implements OnInit {
   @Input() book: Book;
-  @Input() imageLink: string;
 
-  constructor(private booksService: BooksService, private router: Router) {}
+  imageUrl: string;
 
-  ngOnInit(): void {}
+  constructor(
+    private booksService: BooksService,
+    private router: Router,
+    private http: HttpClient
+  ) {}
+
+  ngOnInit(): void {
+    this.imageUrl =
+      'https://filedn.eu/lLxIsbSaF1YQdyIx44x9S8z/images/' +
+      this.book.isbn +
+      '.jpg';
+  }
 
   goToLink(isbn: string) {
     window.open(
@@ -24,11 +35,11 @@ export class BookCardComponent implements OnInit {
   }
 
   onSelectedBook() {
-    // console.log(this.book);
-
-    // this.booksService.bookSelected.emit(this.book);
-    // this.router.navigate(['/book']);
-
     this.router.navigate(['/book', this.book.isbn]);
+  }
+
+  updateImageUrl() {
+    this.imageUrl =
+      'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg';
   }
 }

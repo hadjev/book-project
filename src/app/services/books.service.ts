@@ -22,9 +22,10 @@ export class BooksService {
   // 9783423020749 Fuast NOT FOUND
 
   fetchNewBook(isbn: HTMLInputElement) {
-    // isbn = '9783426780428';
     return this.http.get(this.fetchUrl + isbn.value).pipe(
       map((data: any) => {
+        console.log(data);
+
         const bookBaseUrl = data.items[0];
         let author: string = '';
         let authors: string = '';

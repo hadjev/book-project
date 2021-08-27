@@ -9,13 +9,13 @@ import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AuthComponent } from './auth/auth.component';
 import { BookCardComponent } from './book-card/book-card.component';
-import { BookEditFormComponent } from './book-edit/book-edit-form/book-edit-form.component';
 import { BookEditComponent } from './book-edit/book-edit.component';
 import { BookSingleItemComponent } from './book-single-item/book-single-item.component';
 import { BooksListComponent } from './books-list/books-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NewBookComponent } from './new-book/new-book.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { SortByPipe } from './pipes/sort-by.pipe';
 
 registerLocaleData(localeDe, 'de');
 
@@ -28,9 +28,9 @@ registerLocaleData(localeDe, 'de');
     BookCardComponent,
     BookSingleItemComponent,
     BookEditComponent,
-    BookEditFormComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    SortByPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [

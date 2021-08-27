@@ -9,7 +9,8 @@ import { BooksService } from '../services/books.service';
 })
 export class BooksListComponent implements OnInit {
   books: Book[] = [];
-  imageLink: string;
+  sortField = 'publishedDate';
+  sortDirection = 'asc';
   isLoading = true;
 
   // private books: Book[] = [];
@@ -17,18 +18,19 @@ export class BooksListComponent implements OnInit {
   constructor(private booksService: BooksService) {}
 
   ngOnInit() {
-    if (!this.booksService.booksArray) {
-      this.booksService.getBooks().subscribe((books) => {
-        this.books = books;
-        this.isLoading = false;
-      });
-    } else {
-      this.books = this.booksService.booksArray;
-      this.isLoading = false;
-    }
+    // if (!this.booksService.booksArray) {
+    //   this.booksService.getBooks().subscribe((books) => {
+    //     this.books = books;
+    //     this.isLoading = false;
+    //   });
+    // } else {
+    //   this.books = this.booksService.booksArray;
+    //   this.isLoading = false;
+    // }
 
-    // this.booksService.getBooks().subscribe((books) => {
-    //   this.books = books;
-    // });
+    this.booksService.getBooks().subscribe((books) => {
+      this.books = books;
+      this.isLoading = false;
+    });
   }
 }

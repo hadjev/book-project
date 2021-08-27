@@ -11,24 +11,31 @@ import { BooksService } from '../services/books.service';
 })
 export class NewBookComponent implements OnInit {
   fetchedBook: Book;
-  imageLink: string;
-  isLoading = false;
+  isLoading: boolean = false;
+  showSearch: boolean = true;
+  showError: boolean = false;
+  actualSearchIsbn: string;
 
   constructor(private booksService: BooksService, private router: Router) {}
 
   ngOnInit(): void {}
 
-  onSearchButtonClick(isbn: HTMLInputElement): void {
+  onSearchButtonClick(isbnElement: HTMLInputElement): void {
     this.isLoading = true;
+    this.actualSearchIsbn = isbnElement.value;
 
-    this.booksService.fetchNewBook(isbn).subscribe((data) => {
-      console.log(data);
+    this.booksService.fetchNewBook(isbnElement).subscribe(
+      (data) => {
+        this.fetchedBook = { ...data, id: '' };
 
-      this.fetchedBook = { ...data, id: '' };
-      this.imageLink = data.imgLink;
-
-      this.isLoading = false;
-    });
+        this.isLoading = false;
+      },
+      (error) => {
+        isbnElement.value = '';
+        this.showSearch = false;
+        this.isLoading = false;
+      }
+    );
   }
 
   onSaveBook(form: NgForm): void {
@@ -49,5 +56,9 @@ export class NewBookComponent implements OnInit {
 
   onBookTypeChange(event) {
     this.fetchedBook.type = event.target.value;
+  }
+
+  onNewSearch() {
+    this.showSearch = true;
   }
 }

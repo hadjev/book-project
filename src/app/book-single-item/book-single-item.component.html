@@ -27,29 +27,31 @@
             &nbsp;<span class="text-danger">verkauft</span>
           </h2>
 
-          <!-- Booktype + Year -->
+          <!-- Booktype + Year
           <h4 class="card-subtitle text-muted">
             {{ selectedBook.type }} - {{ selectedBook.publischedDate }}
-          </h4>
+          </h4> -->
 
           <!-- Author || Authors -->
           <small>
             <p class="fw-light author" *ngIf="selectedBook.author">
-              von {{ selectedBook.author }}
+              Author: {{ selectedBook.author }}
             </p>
             <p class="fw-light author" *ngIf="selectedBook.authors">
-              von {{ selectedBook.authors }}
+              Authoren: {{ selectedBook.authors }}
             </p>
           </small>
 
           <!-- Content -->
-          <div class="col-8">
-            <p class="card-text">{{ selectedBook.content }}</p>
+          <div class="col-10">
+            <p class="card-text preserve-white-space">
+              {{ selectedBook.content }}
+            </p>
           </div>
 
           <!-- Page Count -->
           <p class="card-text spacing-top-1 no-margin-bottom">
-            <span class="fw-bold">Seiten: </span>
+            <span class="fw-bold">Pages: </span>
             {{ selectedBook.pageCount }}
           </p>
 
@@ -59,9 +61,9 @@
             {{ selectedBook.isbn }}
           </p>
 
-          <!-- Book type -->
+          <!-- Book type + Year -->
           <p class="text-primary" id="type">
-            {{ selectedBook.type }}
+            {{ selectedBook.type }} | {{ selectedBook.publischedDate }}
           </p>
 
           <!-- Price -->
@@ -93,11 +95,15 @@
 
 <div class="row">
   <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-info" (click)="onEdit()">Edit</button>
+    <button
+      *ngIf="isUserLoggedIn"
+      class="btn btn-info"
+      type="button"
+      (click)="onEdit()"
+    >
+      Edit
+    </button>
   </div>
 </div>
 
-<app-book-edit-form
-  *ngIf="bookEditing"
-  [book]="selectedBook"
-></app-book-edit-form>
+<app-book-edit *ngIf="bookEditing" [book]="selectedBook"></app-book-edit>

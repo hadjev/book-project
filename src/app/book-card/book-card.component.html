@@ -1,18 +1,9 @@
 <div class="card mb-3 mx-auto" style="max-width: 480px">
   <div class="row g-0">
     <div class="col-2">
-      <!--
-          '../../assets/images' ||
-          'url = https://filedn.eu/lLxIsbSaF1YQdyIx44x9S8z/images/' ||
-          this.book.imgLink
-
-          https://filedn.eu/lLxIsbSaF1YQdyIx44x9S8z/images/{{
-          book.isbn
-        }}.jpg
-       -->
-
       <img
-        src="{{ imageLink }}"
+        [src]="imageUrl"
+        onError="this.src='https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'"
         class="img-fluid rounded-start"
         alt="..."
         width="100px"
@@ -32,16 +23,16 @@
         <!-- Author || Authors -->
         <small>
           <p class="fw-light author" *ngIf="book.author">
-            von {{ book.author }}
+            Author: {{ book.author }}
           </p>
           <p class="fw-light author" *ngIf="book.authors">
-            von {{ book.authors }}
+            Authoren: {{ book.authors }}
           </p>
         </small>
 
         <!-- Book type -->
         <p class="text-primary" id="type">
-          {{ book.type }}
+          {{ book.type }} | {{ book.publischedDate }}
         </p>
 
         <!-- Price -->

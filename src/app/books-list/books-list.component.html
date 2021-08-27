@@ -5,7 +5,6 @@
 <div *ngIf="!isLoading">
   <app-book-card
     [book]="book"
-    *ngFor="let book of books"
-    imageLink="{{ book.imgLink }}"
+    *ngFor="let book of books | sortBy: [sortField, sortDirection]"
   ></app-book-card>
 </div>
