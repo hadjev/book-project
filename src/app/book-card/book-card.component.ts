@@ -16,13 +16,6 @@ export class BookCardComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  goToLink(isbn: string) {
-    window.open(
-      `https://www.amazon.de/gp/search?ie=UTF8&keywords=${isbn}`,
-      '_blank'
-    );
-  }
-
   onSelectedBook() {
     this.router.navigate(['/book', this.book.isbn]);
   }
