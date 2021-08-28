@@ -11,11 +11,16 @@
           class="form-select form-select-sm"
           (change)="sortHandler($event)"
         >
-          <option selected value="0">Sort by: Title A-Z</option>
-          <option value="1">Sort by: Title Z-A</option>
-          <option value="2">Sort by: Price Low to High</option>
-          <option value="3">Sort by: Price High to Low</option>
-          <option value="4">Sort by: Publication Date</option>
+          <option selected value="title asc">Sort by: Title A-Z</option>
+          <option value="title desc">Sort by: Title Z-A</option>
+          <option value="price asc">Sort by: Price Low to High</option>
+          <option value="price desc">Sort by: Price High to Low</option>
+          <option value="publishedDate asc">
+            Sort by: Publication Date Low to High
+          </option>
+          <option value="publishedDate desc">
+            Sort by: Publication Date High to Low
+          </option>
         </select>
       </div>
     </div>

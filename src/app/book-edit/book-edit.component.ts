@@ -28,18 +28,10 @@ export class BookEditComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  // Update book
   onSubmit(form: HTMLFormElement) {
     let tempBookArray: any = [];
     tempBookArray = form.value;
-
-    // Check for AUTHOR and add them
-    if (!tempBookArray.author) {
-      tempBookArray.author = '';
-    }
-    // Check for AUTHORS and add them
-    if (!tempBookArray.authors) {
-      tempBookArray.authors = '';
-    }
 
     this.updatedBook = tempBookArray;
 

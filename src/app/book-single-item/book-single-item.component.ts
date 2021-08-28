@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { Book } from '../models/book.model';
 import { BooksService } from '../services/books.service';
@@ -17,10 +16,8 @@ export class BookSingleItemComponent implements OnInit {
   isUserLoggedIn: boolean = false;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private booksService: BooksService,
-    private http: HttpClient,
     private authService: AuthService
   ) {}
 
